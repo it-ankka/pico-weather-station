@@ -44,10 +44,15 @@ sudo usermod -aG dialout $USER
 
 Start the server
 ```shell
-uv run server.py /dev/PICOTTY 
+go run main.go -port 8080 -serialport /dev/PICOTTY 
 ```
 
-You can also add logging, and set the HTTP-port and rate for the serial data if you want.
+Compile the application
 ```shell
-uv run server.py -v -p 8080 -r 115200 -v /dev/PICOTTY
+go build -o weather-server main.go
+```
+
+Cross compile the application
+```shell
+CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o weather-server-arm64 main.go
 ```
